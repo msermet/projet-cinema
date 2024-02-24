@@ -8,7 +8,7 @@
 require './config/db-config.php';
 
 // 2. Préparation de la requête
-$requete = $pdo->prepare("SELECT * FROM film");
+$requete = $pdo->prepare("SELECT titre,(SEC_TO_TIME(duree*60)) AS duree_heure,resume,date_sortie,pays,image FROM film");
 
 // 3. Exécution de la requête
 $requete->execute();
@@ -36,44 +36,23 @@ $films = $requete->fetchAll(PDO::FETCH_ASSOC);
     <title>Films</title>
     <link rel="shortcut icon" href="./assets/images/icon-film.png" />
 </head>
-<body>
-<!--    Barre de navigation-->
-<header>
-    <nav class="navbar navbar-expand-lg bg-warning navbar-expand-md">
-        <div class="container-fluid">
-            <h1 class="navbar-brand text-dark fs-3" href="#"><i class="bi bi-film me-2"></i>Films</h1>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-end flex-grow-1 pe-3">
-                    <li class="nav-item">
-                        <a class="nav-link active fs-5 fw-semibold" aria-current="page" href="#">Nouveau film</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active fs-5 fw-semibold" aria-current="page" href="#">Cinémathèque</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active fs-5 fw-semibold" aria-current="page" href="#">Les mieux notés</a>
-                    </li>
-                </ul>
-                <button type="button" class="btn btn-outline-dark fw-bold border-2">En savoir plus</button>
-            </div>
-        </div>
-    </nav>
-</header>
+<body class="bg-secondary">
+
+<!--Insertion d'un menu-->
+<?php include_once './_partials/menu.php' ?>
+
 <!-- cartes-->
 <section>
-    <div class="container">
-        <div class="row">
+    <div class="container text-center">
+        <div class="row align-items-center vh-100">
             <?php foreach ($films as $film) : ?>
-                <div class="col-sm-3">
-                    <div class="card border-dark mb-5 text-center border-2" style="width: 18rem;">
+                <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3">
+                    <div class="card border-dark mb-5 text-center border-3 container" style="width: 18rem;">
                         <div class="card-body">
                             <img src="<?= $film["image"] ?>" alt="">
-                            <p class="mt-3 fw-semibold fs-5"><?= $film["titre"] ?></p>
-                            <p class="fw-bold"><?= $film["duree"]?> minutes</p>
-                            <button class="btn btn-warning">Détails du film</button>
+                            <p class="mt-3 fw-bold fs-6"><?= $film["titre"] ?></p>
+                            <p class="fw-semibold">Durée : <?= $film["duree_heure"]?></p>
+                            <a class="btn btn-warning fw-semibold" href="details.php?titre=<?= $film["titre"] ?>" role="button">Détails</a>
                         </div>
                     </div>
                 </div>
