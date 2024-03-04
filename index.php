@@ -8,7 +8,7 @@
 require './config/db-config.php';
 
 // 2. Préparation de la requête
-$requete = $pdo->prepare("SELECT titre,(SEC_TO_TIME(duree*60)) AS duree_heure,resume,date_sortie,pays,image FROM film");
+$requete = $pdo->prepare("SELECT titre,(SEC_TO_TIME(duree*60)) AS duree_heure,resume,date_sortie,pays,image,id_film FROM film");
 
 // 3. Exécution de la requête
 $requete->execute();
@@ -52,7 +52,7 @@ $films = $requete->fetchAll(PDO::FETCH_ASSOC);
                             <img src="<?= $film["image"] ?>" alt="">
                             <p class="mt-3 fw-bold fs-6"><?= $film["titre"] ?></p>
                             <p class="fw-semibold">Durée : <?= $film["duree_heure"]?></p>
-                            <a class="btn btn-warning fw-semibold" href="details.php?titre=<?= $film["titre"] ?>" role="button">Détails</a>
+                            <a class="btn btn-warning fw-semibold" href="details.php?id=<?= $film["id_film"] ?>" role="button">Détails</a>
                         </div>
                     </div>
                 </div>

@@ -8,7 +8,7 @@
 require './config/db-config.php';
 
 // 2. Préparation de la requête
-$requete = $pdo->prepare("SELECT titre,(SEC_TO_TIME(duree*60)) AS duree_heure,resume,DATE_FORMAT(date_sortie,'%d/%m/%Y') AS date_fr,pays,image FROM film");
+$requete = $pdo->prepare("SELECT titre,(SEC_TO_TIME(duree*60)) AS duree_heure,resume,DATE_FORMAT(date_sortie,'%d/%m/%Y') AS date_fr,pays,image,id_film FROM film");
 
 // 3. Exécution de la requête
 $requete->execute();
@@ -19,9 +19,9 @@ $films = $requete->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <?php
-$titre = null;
-if (isset($_GET["titre"])) {
-    $titre = $_GET["titre"];
+$id = null;
+if (isset($_GET["id"])) {
+    $id = $_GET["id"];
 }
 ?>
 
@@ -43,11 +43,11 @@ if (isset($_GET["titre"])) {
 <?php include_once './_partials/menu.php' ?>
 
 <div class="container">
-    <?php if ($titre): ?>
+    <?php if ($id): ?>
         <?php foreach ($films as $film) : ?>
-            <?php if ($film["titre"]==$titre): ?>
+            <?php if ($film["id_film"]==$id): ?>
                 <div class="text-center">
-                    <h1 class="badge text-bg-dark text-wrap text-center m-5 fs-1" style="width: 50rem;"><?= $titre ?></h1>
+                    <h1 class="badge text-bg-dark text-wrap text-center m-5 fs-1" style="width: 50rem;"><?= $film["titre"] ?></h1>
                 </div>
                 <table class="table table-warning table-striped table-bordered border-black text-center border-4">
                     <thead class="table-secondary border-black border-2">
