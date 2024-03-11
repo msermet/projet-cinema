@@ -64,3 +64,5 @@ $films = $requete->fetchAll(PDO::FETCH_ASSOC);
 <script src="./assets/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+<!-- images : placeholder-->
