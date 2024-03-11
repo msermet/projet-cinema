@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-dark navbar-expand-md">
     <div class="container-fluid">
-        <h1 class="navbar-brand text-warning fs-3"><i class="bi bi-film me-2"></i>Films</h1>
+        <h1 class="navbar-brand text-warning fs-3"><i class="bi bi-film me-2"></i>Cinéma</h1>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

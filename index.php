@@ -33,7 +33,7 @@ $films = $requete->fetchAll(PDO::FETCH_ASSOC);
             padding: 60px 0;
         }
     </style>
-    <title>Films</title>
+    <title>Cinéma</title>
     <link rel="shortcut icon" href="./assets/images/icon-film.png" />
 </head>
 <body class="bg-secondary">
@@ -41,13 +41,16 @@ $films = $requete->fetchAll(PDO::FETCH_ASSOC);
 <!--Insertion d'un menu-->
 <?php include_once './_partials/menu.php' ?>
 
+<div class="container">
+    <h1 class="border-bottom border-warning border-3 mt-5 m-2 fw-semibold text-dark">Films</h1>
+</div>
 <!-- cartes-->
 <section>
     <div class="container text-center">
         <div class="row align-items-center vh-100">
             <?php foreach ($films as $film) : ?>
                 <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3">
-                    <div class="card border-dark mb-5 text-center border-3 container" style="width: 18rem;">
+                    <div class="card border-dark mb-5 text-center border-3 container bg-light" style="width: 18rem;">
                         <div class="card-body">
                             <img src="<?= $film["image"] ?>" alt="">
                             <p class="mt-3 fw-bold fs-6"><?= $film["titre"] ?></p>
