@@ -8,7 +8,7 @@
 require './config/db-config.php';
 
 // 2. Préparation de la requête
-$requete = $pdo->prepare("SELECT titre,(SEC_TO_TIME(duree*60)) AS duree_heure,resume,date_sortie,pays,image,id_film FROM film");
+$requete = $pdo->prepare("SELECT * FROM film");
 
 // 3. Exécution de la requête
 $requete->execute();
@@ -16,6 +16,8 @@ $requete->execute();
 // 4. Récupération des enregistrements
 // 1 enregistrement = 1 tableau associatif
 $films = $requete->fetchAll(PDO::FETCH_ASSOC);
+
+include_once ("./_partials/fonctions.php");
 ?>
 
 
@@ -36,13 +38,13 @@ $films = $requete->fetchAll(PDO::FETCH_ASSOC);
     <title>Cinéma</title>
     <link rel="shortcut icon" href="./assets/images/icon-film.png" />
 </head>
-<body class="bg-secondary">
+<body class="bg-light">
 
 <!--Insertion d'un menu-->
 <?php include_once './_partials/menu.php' ?>
 
 <div class="container">
-    <h1 class="border-bottom border-warning border-3 mt-5 m-2 fw-semibold text-dark">Films</h1>
+    <h1 class="border-bottom border-primary border-3 mt-5 m-2 fw-semibold text-dark">Films</h1>
 </div>
 <!-- cartes-->
 <section>
@@ -50,12 +52,12 @@ $films = $requete->fetchAll(PDO::FETCH_ASSOC);
         <div class="row align-items-center vh-100">
             <?php foreach ($films as $film) : ?>
                 <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3">
-                    <div class="card border-dark mb-5 text-center border-3 container bg-light" style="width: 18rem;">
+                    <div class="card border-dark mb-5 text-center border-3 container bg-white shadow" style="width: 18rem;">
                         <div class="card-body">
-                            <img src="<?= $film["image"] ?>" alt="">
+                            <img height="305px" width="220px" class="rounded-2" src="<?= $film["image"] ?>" alt="">
                             <p class="mt-3 fw-bold fs-6"><?= $film["titre"] ?></p>
-                            <p class="fw-semibold">Durée : <?= $film["duree_heure"]?></p>
-                            <a class="btn btn-warning fw-semibold" href="details.php?id=<?= $film["id_film"] ?>" role="button">Détails</a>
+                            <p class="fw-semibold">Durée : <?= convertirEnHeuresMinutes($film["duree"])?></p>
+                            <a class="btn btn-primary fw-semibold" href="details.php?id=<?= $film["id_film"] ?>" role="button">Détails</a>
                         </div>
                     </div>
                 </div>
@@ -69,3 +71,4 @@ $films = $requete->fetchAll(PDO::FETCH_ASSOC);
 </html>
 
 <!-- images : placeholder-->
+

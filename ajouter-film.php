@@ -1,4 +1,14 @@
 <?php
+// Récupérer la liste des étudiants dans la table etudiant
+
+// 1. Connexion à la base de données db_cinema
+/**
+ * @var PDO $pdo
+ */
+require './config/db-config.php';
+?>
+
+<?php
 // Déterminer si le formulaire a été soumis
 // Utilisation d'une variable superglobale $_SERVER
 // $_SERVER : tableau associatif contenant des informations sur la requête HTTP
@@ -41,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $erreurs['pays'] = "Le pays est obligatoire";
     }
     if (empty($image)) {
-        $erreurs['image'] = "Le lien de l'image est obligatoire";
+        $image="https://placehold.co/220x305/?text=".$titre;
     } elseif (!filter_var($image,FILTER_VALIDATE_URL,FILTER_FLAG_PATH_REQUIRED)) {
         $erreurs['image'] = "Le lien de l'image n'est pas valide";
     }
@@ -49,6 +59,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Traiter les données
     if (empty($erreurs)) {
         // Traitement des données (insertion dans une base de données)
+        // Rediriger l'utilisateur vers une autre page du site
+        $requete = $pdo->prepare('INSERT INTO film (titre,duree,resume,date_sortie,pays,image) VALUES (?,?,?,?,?,?)');
+        $requete->bindParam(1, $titre);
+        $requete->bindParam(2, $duree);
+        $requete->bindParam(3, $resume);
+        $requete->bindParam(4, $date);
+        $requete->bindParam(5, $pays);
+        $requete->bindParam(6, $image);
+
+        // Exécution de la requête
+        $requete->execute();
+
         // Rediriger l'utilisateur vers une autre page du site
         header("Location: ../index.php");
         exit();
@@ -69,17 +91,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link href="https://fonts.googleapis.com/css2?family=Gluten:wght@100;200;300;400;500;600;700;800;900&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <title>Formulaire</title>
+    <title>Ajouter un film</title>
 </head>
-<body>
+<body class="bg-light">
 <!--Insertion d'un menu-->
 <?php include_once './_partials/menu.php' ?>
 <div class="container">
-    <h1>Formulaire</h1>
+    <h1 class="border-bottom border-3 border-primary pt-5">Ajouter un film</h1>
     <div class="w-50 mx-auto shadow my-5 p-4 bg-white rounded-5">
         <form action="" method="post" novalidate>
             <div class="mb-3">
-                <label for="titre" class="form-label">Titre*</label>
+                <label for="titre" class="form-label fw-semibold">Titre*</label>
                 <input type="text"
                        class="form-control <?= (isset($erreurs['titre'])) ? "border border-2 border-danger" : "" ?>"
                        id="titre" name="titre" value="<?= $titre ?>" placeholder="Saisir le titre"
@@ -89,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <?php endif; ?>
             </div>
             <div class="mb-3">
-                <label for="resume" class="form-label">Résumé*</label>
+                <label for="resume" class="form-label fw-semibold">Résumé*</label>
                 <input type="text"
                        class="form-control <?= (isset($erreurs['resume'])) ? "border border-2 border-danger" : "" ?>"
                        id="resume"
@@ -100,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <?php endif; ?>
             </div>
             <div class="mb-3">
-                <label for="duree" class="form-label">Durée*</label>
+                <label for="duree" class="form-label fw-semibold">Durée*</label>
                 <input type="number"
                        class="form-control <?= (isset($erreurs['duree'])) ? "border border-2 border-danger" : "" ?>"
                        id="duree" name="duree" value="<?= $duree ?>" placeholder="Saisir la durée"
@@ -110,7 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <?php endif; ?>
             </div>
             <div class="mb-3">
-                <label for="date" class="form-label">Date*</label>
+                <label for="date" class="form-label fw-semibold">Date*</label>
                 <input type="date"
                        class="form-control <?= (isset($erreurs['date'])) ? "border border-2 border-danger" : "" ?>"
                        id="date" name="date" value="<?= $date ?>" placeholder="Saisir la date de sortie"
@@ -120,7 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <?php endif; ?>
             </div>
             <div class="mb-3">
-                <label for="pays" class="form-label">Pays*</label>
+                <label for="pays" class="form-label fw-semibold">Pays*</label>
                 <input type="text"
                        class="form-control <?= (isset($erreurs['pays'])) ? "border border-2 border-danger" : "" ?>"
                        id="pays" name="pays" value="<?= $pays ?>" placeholder="Saisir le pays"
@@ -130,7 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <?php endif; ?>
             </div>
             <div class="mb-3">
-                <label for="image" class="form-label">Image*</label>
+                <label for="image" class="form-label fw-semibold">Image*</label>
                 <input type="url"
                        class="form-control <?= (isset($erreurs['image'])) ? "border border-2 border-danger" : "" ?>"
                        id="image" name="image" value="<?= $image ?>" placeholder="Saisir le lien de l'image"
@@ -139,7 +161,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <p class="form-text text-danger"><?= $erreurs['image'] ?></p>
                 <?php endif; ?>
             </div>
-            <button type="submit" class="btn btn-primary">Valider</button>
+            <div class="alert alert-info text-center text-black border-dark" role="alert">
+                <i class="bi bi-info-circle-fill me-2"></i>Une image sera générée automatiquement si vous ne saisissez pas de lien pour l'image du film !
+            </div>
+            <div class="text-center pt-2">
+                <button type="submit" class="btn btn-primary">Ajouter</button>
+            </div>
         </form>
     </div>
 </div>

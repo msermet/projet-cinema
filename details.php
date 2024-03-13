@@ -17,7 +17,7 @@ require './config/db-config.php';
 
 
 // 2. Préparation de la requête
-$requete = $pdo->prepare("SELECT titre,(SEC_TO_TIME(duree*60)) AS duree_heure,resume,DATE_FORMAT(date_sortie,'%d/%m/%Y') AS date_fr,pays,image FROM film WHERE id_film= $id");
+$requete = $pdo->prepare("SELECT titre,duree,resume,DATE_FORMAT(date_sortie,'%d/%m/%Y') AS date_fr,pays,image FROM film WHERE id_film= $id");
 
 
 // 3. Exécution de la requête
@@ -27,6 +27,8 @@ $requete->execute();
 // 4. Récupération des enregistrements
 // 1 enregistrement = 1 tableau associatif
 $film = $requete->fetch(PDO::FETCH_ASSOC);
+
+include_once ("./_partials/fonctions.php");
 ?>
 
 
@@ -42,30 +44,30 @@ $film = $requete->fetch(PDO::FETCH_ASSOC);
     <title>Détails du film</title>
     <link rel="shortcut icon" href="assets/images/icon-film.png" />
 </head>
-<body class="bg-secondary">
+<body class="bg-light">
 
 
 <!--Insertion d'un menu-->
 <?php include_once './_partials/menu.php' ?>
 
-<section class="container bg-white shadow-lg p-3 mb-5 bg-body-tertiary rounded my-5">
+<section class="container bg-white shadow-lg p-3 mb-5 bg-white rounded my-5">
         <?php if ($id): ?>
             <div class="container">
-                <h1 class="border-bottom border-warning border-3">Détails</h1>
+                <h1 class="border-bottom border-primary border-3">Détails</h1>
                 <div class="row align-items-center">
                     <div class="col text-center">
-                        <img class="shadow-lg p-3 m-5 rounded" src="<?= $film["image"] ?>" alt="Image film">
+                        <img height="305px" width="220px" class="shadow-lg p-3 m-5 rounded-2" src="<?= $film["image"] ?>" alt="Image film">
                     </div>
-                    <div class="col shadow-lg p-3 m-5 rounded">
-                        <div class="text-center">
+                    <div class="col shadow-lg rounded me-5">
+                        <div class="text-center mb-2">
                             <p class="badge text-bg-dark text-wrap mt-2 fs-2" style="width: 20rem;"><?= $film["titre"] ?></p>
                         </div>
-                        <div class="m-3 text-center">
-                            <span class="me-5"><i class="bi bi-hourglass-split me-2"></i><?= $film["duree_heure"] ?></span>
-                            <span class="me-5"><i class="bi bi-calendar-check me-2"></i><?= $film["date_fr"] ?></span>
-                            <span><i class="bi bi-geo-fill me-2"></i><?= $film["pays"] ?></span>
+                        <div class="text-center mb-4">
+                            <span class="me-5 fw-semibold"><i class="bi bi-hourglass-split me-2"></i><?= convertirEnHeuresMinutes($film["duree"]) ?></span>
+                            <span class="me-5 fw-semibold"><i class="bi bi-calendar-check me-2"></i><?= $film["date_fr"] ?></span>
+                            <span class="fw-semibold"><i class="bi bi-geo-fill me-2"></i><?= $film["pays"] ?></span>
                         </div>
-                        <?= $film["resume"]?>
+                        <p><span class="me-2 fst-italic fw-semibold">Synopsis:</span><?= $film["resume"]?></p>
                     </div>
                 </div>
             </div>
