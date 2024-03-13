@@ -9,6 +9,9 @@
                 <li class="nav-item">
                     <a class="nav-link active fs-5 fw-semibold text-warning" aria-current="page" href="/formulaire.php">Ajouter un film</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active fs-5 fw-semibold text-warning" aria-current="page" href="/creation-de-compte.php">Inscription</a>
+                </li>
             </ul>
             <a class="btn btn-outline-warning fw-bold border-2" href="../index.php" role="button">Retour</a>
         </div>
