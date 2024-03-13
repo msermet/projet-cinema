@@ -112,11 +112,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <div class="mb-3">
                 <label for="email_utilisateur" class="form-label">Email*</label>
                 <input type="email"
-                       class="form-control <?= (isset($erreurs['email_utilisateur'])) ? "border border-2 border-danger" : "" ?>"
+                       class="form-control <?= (isset($erreurs['email_utilisateur'])) ? "border border-2 border-danger" : "" ?>form-control <?= (isset($erreurs['email_existe'])) ? "border border-2 border-danger" : "" ?>"
                        id="email_utilisateur" name="email_utilisateur" value="<?= $email_utilisateur ?>" placeholder="Saisir un email valide"
                        aria-describedby="emailHelp">
                 <?php if (isset($erreurs['email_utilisateur'])) : ?>
                     <p class="form-text text-danger"><?= $erreurs['email_utilisateur'] ?></p>
+                <?php endif; ?>
+                <?php if (isset($erreurs['email_existe'])) : ?>
+                    <p class="form-text text-danger"><?= $erreurs['email_existe'] ?></p>
                 <?php endif; ?>
             </div>
             <div class="mb-3">
@@ -142,9 +145,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </div>
             <?php if (isset($erreurs['mdp_egaux'])) : ?>
                 <p class="form-text text-danger"><?= $erreurs['mdp_egaux'] ?></p>
-            <?php endif; ?>
-            <?php if (isset($erreurs['email_existe'])) : ?>
-                <p class="form-text text-danger"><?= $erreurs['email_existe'] ?></p>
             <?php endif; ?>
             <button type="submit" class="btn btn-primary">Valider</button>
         </form>
