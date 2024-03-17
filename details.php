@@ -41,8 +41,8 @@ include_once ("./_partials/fonctions.php");
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <title>Détails du film</title>
-    <link rel="shortcut icon" href="assets/images/icon-film.png" />
+    <title>Cinéma - Détails du film</title>
+    <link rel="shortcut icon" href="./assets/images/camera-reels.svg" />
 </head>
 <body class="bg-light">
 

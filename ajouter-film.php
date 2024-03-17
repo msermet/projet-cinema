@@ -91,7 +91,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link href="https://fonts.googleapis.com/css2?family=Gluten:wght@100;200;300;400;500;600;700;800;900&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <title>Ajouter un film</title>
+    <title>Cinéma - Ajouter un film</title>
+    <link rel="shortcut icon" href="./assets/images/camera-reels.svg" />
 </head>
 <body class="bg-light">
 <!--Insertion d'un menu-->

@@ -7,7 +7,7 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-end flex-grow-1 pe-3">
                 <li class="nav-item">
-                    <a class="btn btn-outline-info fw-bold border-2 me-3" href="../index.php" role="button">Liste des films</a>
+                    <a class="btn btn-outline-info fw-bold border-2 me-3" href="/liste-des-films.php" role="button">Liste des films</a>
                 </li>
                 <li class="nav-item">
                     <a class="btn btn-outline-info fw-bold border-2 me-3" role="button" href="/ajouter-film.php">Ajouter un film</a>
