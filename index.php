@@ -41,7 +41,7 @@ include_once ("./_partials/fonctions.php");
 <body>
 
 <!--Insertion d'un menu-->
-<?php include_once './_partials/menu.php' ?>
+<?php include_once './_partials/header.php' ?>
 
 <section class="bg-light">
     <div class="container">

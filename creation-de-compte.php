@@ -97,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 <body class="bg-light">
 <!--Insertion d'un menu-->
-<?php include_once './_partials/menu.php' ?>
+<?php include_once './_partials/header.php' ?>
 <div class="container">
     <h1 class="border-bottom border-3 border-primary pt-5">Inscription</h1>
     <div class="w-50 mx-auto shadow my-5 p-4 rounded-5 bg-white">

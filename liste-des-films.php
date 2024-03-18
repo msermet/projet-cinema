@@ -42,7 +42,7 @@ include_once ("./_partials/fonctions.php");
 <body class="bg-light">
 
 <!--Insertion d'un menu-->
-<?php include_once './_partials/menu.php' ?>
+<?php include_once './_partials/header.php' ?>
 
 <div class="container">
     <h1 class="border-bottom border-primary border-3 mt-5 m-2 fw-semibold text-dark">Films</h1>
