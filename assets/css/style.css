@@ -1,4 +1,4 @@
 .card:hover {
-    transform: scale3d(1.05, 1.05, 1.05);
+    transform: scale3d(1.02, 1.02, 1.02);
     opacity: 1;
 }
