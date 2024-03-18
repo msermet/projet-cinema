@@ -60,7 +60,7 @@ include_once ("./_partials/fonctions.php");
                     </div>
                     <div class="col shadow-lg rounded me-5">
                         <div class="text-center mb-2">
-                            <p class="badge text-bg-dark text-wrap mt-2 fs-2" style="width: 20rem;"><?= $film["titre"] ?></p>
+                            <p class="badge text-bg-dark text-wrap mt-2 fs-3" style="width: 20rem;"><?= $film["titre"] ?></p>
                         </div>
                         <div class="text-center mb-4">
                             <span class="me-5 fw-semibold"><i class="bi bi-hourglass-split me-2"></i><?= convertirEnHeuresMinutes($film["duree"]) ?></span>

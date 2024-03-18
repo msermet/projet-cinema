@@ -55,8 +55,8 @@ include_once ("./_partials/fonctions.php");
     <div class="text-center">
         <p class="badge text-bg-dark text-wrap fs-2" style="width: 20rem;">Nouveautés :</p>
     </div>
-    <div class="container text-center">
-        <div class="row align-items-center vh-100">
+    <div class="container text-center pt-5">
+        <div class="row align-items-center">
             <?php foreach ($films as $film) : ?>
                 <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3">
                     <div class="card border-dark text-center border-3 container bg-white shadow" style="width: 18rem;">
@@ -71,7 +71,7 @@ include_once ("./_partials/fonctions.php");
             <?php endforeach; ?>
         </div>
     </div>
-    <div class="text-center">
+    <div class="text-center pt-5">
         <a class="btn btn-secondary fs-4 fw-bold" href="./liste-des-films.php" role="button">Voir les autres films</a>
     </div>
 </section>
