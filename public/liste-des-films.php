@@ -5,7 +5,7 @@
 /**
  * @var PDO $pdo
  */
-require './config/db-config.php';
+require '../src/config/db-config.php';
 
 // 2. Préparation de la requête
 $requete = $pdo->prepare("SELECT * FROM film");
@@ -17,7 +17,7 @@ $requete->execute();
 // 1 enregistrement = 1 tableau associatif
 $films = $requete->fetchAll(PDO::FETCH_ASSOC);
 
-include_once ("./_partials/fonctions.php");
+include_once("../src/_partials/fonctions.php");
 ?>
 
 
@@ -28,8 +28,8 @@ include_once ("./_partials/fonctions.php");
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         section {
@@ -37,12 +37,12 @@ include_once ("./_partials/fonctions.php");
         }
     </style>
     <title>Cinéma - Liste des films</title>
-    <link rel="shortcut icon" href="./assets/images/camera-reels.svg" />
+    <link rel="shortcut icon" href="assets/images/camera-reels.svg" />
 </head>
 <body class="bg-light">
 
 <!--Insertion d'un menu-->
-<?php include_once './_partials/header.php' ?>
+<?php include_once '../src/_partials/header.php' ?>
 
 <div class="container">
     <h1 class="border-bottom border-primary border-3 mt-5 m-2 fw-semibold text-dark">Films</h1>
@@ -67,7 +67,7 @@ include_once ("./_partials/fonctions.php");
     </div>
 </section>
 
-<script src="./assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 

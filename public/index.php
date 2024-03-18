@@ -5,7 +5,7 @@
 /**
  * @var PDO $pdo
  */
-require './config/db-config.php';
+require '../src/config/db-config.php';
 
 // 2. Préparation de la requête
 $requete = $pdo->prepare("SELECT * FROM film ORDER BY id_film DESC LIMIT 4");
@@ -17,7 +17,7 @@ $requete->execute();
 // 1 enregistrement = 1 tableau associatif
 $films = $requete->fetchAll(PDO::FETCH_ASSOC);
 
-include_once ("./_partials/fonctions.php");
+include_once("../src/_partials/fonctions.php");
 ?>
 
 <!doctype html>
@@ -27,8 +27,8 @@ include_once ("./_partials/fonctions.php");
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         section {
@@ -36,12 +36,12 @@ include_once ("./_partials/fonctions.php");
         }
     </style>
     <title>Cinéma - Accueil</title>
-    <link rel="shortcut icon" href="./assets/images/camera-reels.svg" />
+    <link rel="shortcut icon" href="assets/images/camera-reels.svg" />
 </head>
 <body>
 
 <!--Insertion d'un menu-->
-<?php include_once './_partials/header.php' ?>
+<?php include_once '../src/_partials/header.php' ?>
 
 <section class="bg-light">
     <div class="container">
@@ -73,7 +73,7 @@ include_once ("./_partials/fonctions.php");
         </div>
     </div>
     <div class="text-center pt-5">
-        <a class="btn btn-secondary fs-4 fw-bold" href="./liste-des-films.php" role="button">Voir les autres films</a>
+        <a class="btn btn-secondary fs-4 fw-bold" href="liste-des-films.php" role="button">Voir les autres films</a>
     </div>
 </section>
 
@@ -87,16 +87,16 @@ include_once ("./_partials/fonctions.php");
 
         <ul class="nav col-md-4 justify-content-end">
             <li class="nav-item me-3">
-                <a class="link-offset-2 link-underline link-underline-opacity-0 text-dark" href="/liste-des-films.php" role="button">Liste des films</a>
+                <a class="link-offset-2 link-underline link-underline-opacity-0 text-dark" href="/public/liste-des-films.php" role="button">Liste des films</a>
             </li>
             <li class="nav-item me-3">
-                <a class="link-offset-2 link-underline link-underline-opacity-0 text-dark" role="button" href="/ajouter-film.php">Ajouter un film</a>
+                <a class="link-offset-2 link-underline link-underline-opacity-0 text-dark" role="button" href="/public/ajouter-film.php">Ajouter un film</a>
             </li>
             <li class="nav-item me-3">
-                <a class="link-offset-2 link-underline link-underline-opacity-0 text-dark" role="button" href="/connexion.php">Connexion</a>
+                <a class="link-offset-2 link-underline link-underline-opacity-0 text-dark" role="button" href="/public/connexion.php">Connexion</a>
             </li>
             <li class="nav-item">
-                <a class="link-offset-2 link-underline link-underline-opacity-0 text-dark" role="button" href="/creation-de-compte.php">Inscription</a>
+                <a class="link-offset-2 link-underline link-underline-opacity-0 text-dark" role="button" href="/public/creation-de-compte.php">Inscription</a>
             </li>
         </ul>
     </footer>
@@ -104,7 +104,7 @@ include_once ("./_partials/fonctions.php");
 
 
 
-<script src="./assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 

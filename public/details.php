@@ -16,13 +16,13 @@ if (isset($_GET["id"])) {
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Cinéma - Détails du film</title>
-    <link rel="shortcut icon" href="./assets/images/camera-reels.svg" />
+    <link rel="shortcut icon" href="assets/images/camera-reels.svg" />
 </head>
 <body class="bg-light">
 
 
 <!--Insertion d'un menu-->
-<?php include_once './_partials/header.php' ?>
+<?php include_once '../src/_partials/header.php' ?>
 
 <section class="container bg-white shadow-lg p-3 mb-5 bg-white rounded my-5">
     <?php if ($id): ?>
@@ -32,7 +32,7 @@ if (isset($_GET["id"])) {
         /**
          * @var PDO $pdo
          */
-        require './config/db-config.php';
+        require '../src/config/db-config.php';
 
 
         // 2. Préparation de la requête
@@ -47,7 +47,7 @@ if (isset($_GET["id"])) {
         // 1 enregistrement = 1 tableau associatif
         $film = $requete->fetch(PDO::FETCH_ASSOC);
 
-        include_once ("./_partials/fonctions.php");
+        include_once("../src/_partials/fonctions.php");
         ?>
 
         <?php if ($film!=null): ?>

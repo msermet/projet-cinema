@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-dark navbar-expand-md shadow border-bottom border-top border-primary border-2 sticky-top">
     <div class="container-fluid">
-        <a class="text-decoration-none" href="../index.php"><h1 class="navbar-brand text-info fs-3 fw-bold ms-1 me-5 mt-1"><i class="bi bi-film me-2"></i>Cinéma</h1></a>
+        <a class="text-decoration-none" href="/index.php"><h1 class="navbar-brand text-info fs-3 fw-bold ms-1 me-5 mt-1"><i class="bi bi-film me-2"></i>Cinéma</h1></a>
         <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
