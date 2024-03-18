@@ -53,7 +53,7 @@ include_once ("./_partials/fonctions.php");
         <div class="row align-items-center vh-100">
             <?php foreach ($films as $film) : ?>
                 <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3">
-                    <div class="card border-dark mb-5 text-center border-3 container bg-white shadow" style="width: 18rem;">
+                    <div class="card border-dark mb-5 text-center border-2 container bg-white shadow" style="width: 18rem;">
                         <div class="card-body">
                             <img height="305px" width="220px" class="rounded-2" src="<?= $film["image"] ?>" alt="">
                             <p class="mt-3 fw-bold fs-6"><?= $film["titre"] ?></p>
