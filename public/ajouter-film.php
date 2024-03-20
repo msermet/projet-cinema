@@ -1,11 +1,7 @@
 <?php
-// Récupérer la liste des étudiants dans la table etudiant
+require_once '../base.php';
+require_once BASE_PROJET.'/src/database/film-db.php';
 
-// 1. Connexion à la base de données db_cinema
-/**
- * @var PDO $pdo
- */
-require '../src/config/db-config.php';
 ?>
 
 <?php
@@ -46,6 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
     if (empty($date)) {
         $erreurs['date'] = "La date est obligatoire";
+    } elseif ($date>date("d/m/Y")) {
+        $erreurs['date'] = "La durée n'est pas valide";
     }
     if (empty($pays)) {
         $erreurs['pays'] = "Le pays est obligatoire";
@@ -60,16 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (empty($erreurs)) {
         // Traitement des données (insertion dans une base de données)
         // Rediriger l'utilisateur vers une autre page du site
-        $requete = $pdo->prepare('INSERT INTO film (titre,duree,resume,date_sortie,pays,image) VALUES (?,?,?,?,?,?)');
-        $requete->bindParam(1, $titre);
-        $requete->bindParam(2, $duree);
-        $requete->bindParam(3, $resume);
-        $requete->bindParam(4, $date);
-        $requete->bindParam(5, $pays);
-        $requete->bindParam(6, $image);
-
-        // Exécution de la requête
-        $requete->execute();
+        postFilm($titre,$duree,$resume,$date,$pays,$image);
 
         // Rediriger l'utilisateur vers une autre page du site
         header("Location: ../index.php");
@@ -96,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 <body class="bg-light">
 <!--Insertion d'un menu-->
-<?php include_once '../src/_partials/header.php' ?>
+<?php require_once BASE_PROJET.'/src/_partials/header.php' ?>
 <div class="container">
     <h1 class="border-bottom border-3 border-primary pt-5">Ajouter un film</h1>
     <div class="w-50 mx-auto shadow my-5 p-4 bg-white rounded-5">

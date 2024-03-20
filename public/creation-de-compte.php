@@ -1,11 +1,7 @@
 <?php
-// Récupérer la liste des étudiants dans la table etudiant
+require_once '../base.php';
+require_once BASE_PROJET.'/src/database/utilisateur-db.php';
 
-// 1. Connexion à la base de données db_cinema
-/**
- * @var PDO $pdo
- */
-require '../src/config/db-config.php';
 ?>
 
 <?php
@@ -47,12 +43,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $erreurs['mdp_egaux'] = "Les mots de passe saisis ne sont pas identiques";
     } elseif (14<strlen($mdp) || 8>strlen($mdp)) {
         $erreurs['mdp_longueur'] = "Le mot de passe doit être compris entre 8 et 14 caractères..";
+    } elseif (!preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W)#', $mdp)) {
+        $erreurs['mdp'] = "Votre mot de passe doit contenir un chiffre, une minuscule, une majuscule";
     }
 
+
     // Tester si l'adresse mail n'existe pas déjà dans la BDD
-    $verification = $pdo->prepare("SELECT * FROM utilisateur WHERE email_utilisateur=?");
-    $verification->execute([$email_utilisateur]);
-    $utilisateur = $verification->fetch();
+    $utilisateur=getUtilisateur($email_utilisateur);
     if ($utilisateur) {
         // email existe
         $erreurs['email_existe'] = "Un compte existe déjà avec cet email !";
@@ -61,14 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Traiter les données
         if (empty($erreurs)) {
             // Traitement des données (insertion dans une base de données)
-            $mdp_Hash = password_hash($mdp, PASSWORD_DEFAULT);
-            $requete = $pdo->prepare('INSERT INTO utilisateur (pseudo_utilisateur,email_utilisateur,mdp_utilisateur) VALUES (?,?,?)');
-            $requete->bindParam(1, $pseudo);
-            $requete->bindParam(2, $email_utilisateur);
-            $requete->bindParam(3, $mdp_Hash);
-
-            // Exécution de la requête
-            $requete->execute();
+            postUtilisateur($mdp,$pseudo,$email_utilisateur);
 
             // Rediriger l'utilisateur vers une autre page du site
             header("Location: ../index.php");
@@ -97,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 <body class="bg-light">
 <!--Insertion d'un menu-->
-<?php include_once '../src/_partials/header.php' ?>
+<?php require_once BASE_PROJET.'/src/_partials/header.php' ?>
 <div class="container">
     <h1 class="border-bottom border-3 border-primary pt-5">Inscription</h1>
     <div class="w-50 mx-auto shadow my-5 p-4 rounded-5 bg-white">

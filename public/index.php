@@ -1,23 +1,9 @@
 <?php
-// Récupérer la liste des étudiants dans la table film
+require_once '../base.php';
+require_once BASE_PROJET . '/src/database/film-db.php';
+$films = getFilmsACcueil();
 
-// 1. Connexion à la base de données db_cinema
-/**
- * @var PDO $pdo
- */
-require '../src/config/db-config.php';
-
-// 2. Préparation de la requête
-$requete = $pdo->prepare("SELECT * FROM film ORDER BY id_film DESC LIMIT 4");
-
-// 3. Exécution de la requête
-$requete->execute();
-
-// 4. Récupération des enregistrements
-// 1 enregistrement = 1 tableau associatif
-$films = $requete->fetchAll(PDO::FETCH_ASSOC);
-
-include_once("../src/_partials/fonctions.php");
+require_once BASE_PROJET."/src/fonctions.php";
 ?>
 
 <!doctype html>
@@ -41,7 +27,7 @@ include_once("../src/_partials/fonctions.php");
 <body>
 
 <!--Insertion d'un menu-->
-<?php include_once '../src/_partials/header.php' ?>
+<?php require_once BASE_PROJET.'/src/_partials/header.php' ?>
 
 <section class="bg-light">
     <div class="container">

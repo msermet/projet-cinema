@@ -1,11 +1,13 @@
 <?php
+require_once '../base.php';
+
 // Récupérer la liste des étudiants dans la table etudiant
 
 // 1. Connexion à la base de données db_cinema
 /**
  * @var PDO $pdo
  */
-require '../src/config/db-config.php';
+require_once BASE_PROJET.'/src/config/db-config.php';
 ?>
 
 <?php
@@ -91,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 <body class="bg-light">
 <!--Insertion d'un menu-->
-<?php include_once '../src/_partials/header.php' ?>
+<?php require_once BASE_PROJET.'/src/_partials/header.php' ?>
 <div class="container">
     <h1 class="border-bottom border-3 border-primary pt-5">Connexion</h1>
     <div class="w-50 mx-auto shadow my-5 p-4 rounded-5 bg-white">
