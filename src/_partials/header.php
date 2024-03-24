@@ -6,12 +6,12 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mt-0">
+            <ul id="navigation" class="navbar-nav mt-0">
                 <li class="nav-item">
                     <a class="link-offset-2 link-underline link-underline-opacity-0 text-info fw-semibold border-2 me-4 fs-5" href="<?php BASE_PROJET?>/liste-des-films.php">Liste des films</a>
                 </li>
                 <li class="nav-item">
-                    <a  class="link-offset-2 link-underline link-underline-opacity-0 text-info fw-semibold border-2 fs-5" role="button" href="<?php BASE_PROJET?>/ajouter-film.php">Ajouter un film</a>
+                    <a class="link-offset-2 link-underline link-underline-opacity-0 text-info fw-semibold border-2 fs-5" role="button" href="<?php BASE_PROJET?>/ajouter-film.php">Ajouter un film</a>
                 </li>
             </ul>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-end flex-grow-1 pe-3">
