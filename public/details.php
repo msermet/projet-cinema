@@ -6,7 +6,7 @@ require_once BASE_PROJET."/src/fonctions.php";
 $id = null;
 $erreur=false;
 if (isset($_GET["id"])) {
-    $id = $_GET["id"];
+    $id = filter_var($_GET["id"],FILTER_VALIDATE_INT);
     $film = getDetails($id);
     if ($film==null) {
         $erreur=true;
