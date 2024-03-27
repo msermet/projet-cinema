@@ -10,6 +10,10 @@ $pseudo = null;
 if (isset($_SESSION["pseudo"])) {
     $pseudo= $_SESSION["pseudo"];
 }
+$id_utilisateur = null;
+if (isset($_SESSION["id_utilisateur"])) {
+    $id_utilisateur= $_SESSION["id_utilisateur"];
+}
 ?>
 
 <?php

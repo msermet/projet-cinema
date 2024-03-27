@@ -30,3 +30,13 @@ function getMdpUtilisateur($email_utilisateur) : array|bool
     $mdp=$recuperation->fetch(PDO::FETCH_ASSOC);
     return $mdp;
 }
+
+
+function getPseudoUtilisateur($id_utilisateur)
+{
+    $pdo = getConnexion();
+    $recuperation = $pdo->prepare("SELECT pseudo_utilisateur FROM utilisateur WHERE id_utilisateur=?");
+    $recuperation->execute([$id_utilisateur]);
+    $pseudo=$recuperation->fetch(PDO::FETCH_ASSOC);
+    return $pseudo;
+}

@@ -21,12 +21,12 @@ function getFilmsACcueil(): array
 function getDetails(int $id) : array|bool
 {
     $pdo = getConnexion();
-    $requete = $pdo->prepare("SELECT titre,duree,resume,DATE_FORMAT(date_sortie,'%d/%m/%Y') AS date_fr,pays,image,id_film FROM film WHERE id_film= $id");
+    $requete = $pdo->prepare("SELECT titre,duree,resume,DATE_FORMAT(date_sortie,'%d/%m/%Y') AS date_fr,pays,image,id_film,id_utilisateur FROM film WHERE id_film= $id");
     $requete->execute();
     return $requete->fetch(PDO::FETCH_ASSOC);
 }
 
-function postFilm($titre,$duree,$resume,$date,$pays,$image): void
+function postFilm($titre,$duree,$resume,$date,$pays,$image,$id_utilisateur): void
 {
     $pdo = getConnexion();
     $requete = $pdo->prepare('INSERT INTO film (titre,duree,resume,date_sortie,pays,image,id_utilisateur) VALUES (?,?,?,?,?,?,?)');
@@ -36,7 +36,8 @@ function postFilm($titre,$duree,$resume,$date,$pays,$image): void
     $requete->bindParam(4, $date);
     $requete->bindParam(5, $pays);
     $requete->bindParam(6, $image);
+    $requete->bindParam(7, $id_utilisateur);
     $requete->execute();
 }
-?>
 
+?>

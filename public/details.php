@@ -6,9 +6,14 @@ $pseudo = null;
 if (isset($_SESSION["pseudo"])) {
     $pseudo= $_SESSION["pseudo"];
 }
+$id = null;
+if (isset($_SESSION["id"])) {
+    $id= $_SESSION["id"];
+}
 
 require_once '../base.php';
 require_once BASE_PROJET.'/src/database/film-db.php';
+require_once BASE_PROJET.'/src/database/utilisateur-db.php';
 require_once BASE_PROJET."/src/fonctions.php";
 
 $id = null;
@@ -61,7 +66,9 @@ if (isset($_GET["id"])) {
                         <span class="fw-semibold"><i class="bi bi-geo-fill me-2"></i><?= $film["pays"] ?></span>
                     </div>
                     <p><span class="me-2 fst-italic fw-semibold">Synopsis:</span><?= $film["resume"]?></p>
-                    <p class="text-secondary">Film créé par :</p>
+                    <p class="text-secondary">Film créé par : <?php $pseudo=getPseudoUtilisateur($film["id_utilisateur"]);
+                        echo $pseudo['pseudo_utilisateur']?></p>
+
                 </div>
             </div>
         </div>

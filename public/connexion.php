@@ -38,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         } else {
             foreach ($utilisateur as $infoUtilisateur) {
                 $pseudo=$infoUtilisateur["pseudo_utilisateur"];
+                $id_utilisateur=$infoUtilisateur["id_utilisateur"];
             }
         }
     }
@@ -54,6 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     session_start();    // PREMIERE INSTRUCTION
                     // Ajouter une variable de session "utilisateur"
                     $_SESSION['pseudo'] = $pseudo;
+                    $_SESSION['id_utilisateur'] = $id_utilisateur;
                     header("Location: ../index.php");
                     exit();
                 } else {
