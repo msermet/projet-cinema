@@ -1,13 +1,11 @@
 <?php
 require_once '../base.php';
+require_once BASE_PROJET.'/src/database/utilisateur-db.php';
 
-// Récupérer la liste des étudiants dans la table etudiant
-
-// 1. Connexion à la base de données db_cinema
-/**
- * @var PDO $pdo
- */
-require_once BASE_PROJET.'/src/config/db-config.php';
+session_start();
+if (!empty($_SESSION)) {
+    header("Location: ../index.php");
+}
 ?>
 
 <?php
@@ -31,45 +29,39 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $erreurs['email_utilisateur'] = "L'email est obligatoire";
     } elseif (!filter_var($email_utilisateur, FILTER_VALIDATE_EMAIL)) {
         $erreurs['email_utilisateur'] = "L'email n'est pas valide";
+    } else {
+        // Tester si l'adresse mail existe dans la BDD
+        $utilisateur=getEmailUtilisateur($email_utilisateur);
+        if (!$utilisateur) {
+            // email n'existe pas
+            $erreurs['identifiants'] = "Identifiants incorrects";
+        } else {
+            foreach ($utilisateur as $infoUtilisateur) {
+                $pseudo=$infoUtilisateur["pseudo_utilisateur"];
+            }
+        }
     }
+
     if (empty($mdp)) {
         $erreurs['mdp'] = "Le mot de passe est obligatoire";
-    }
-
-    // Tester si l'adresse mail n'existe pas déjà dans la BDD
-    $verification_email = $pdo->prepare("SELECT * FROM utilisateur WHERE email_utilisateur=?");
-    $verification_email->execute([$email_utilisateur]);
-    $utilisateur = $verification_email->fetch();
-
-    // Tester si le mot de passe n'existe pas déjà dans la BDD
-    $verification_mdp = $pdo->prepare("SELECT * FROM utilisateur WHERE email_utilisateur=?");
-    $verification_mdp->execute([$email_utilisateur]);
-    $utilisateur = $verification_mdp->fetch();
-    // #douteux
-
-    if ($utilisateur) {
-        // email existe
-        // Traiter les données
-        if (empty($erreurs)) {
-            // Traitement des données (insertion dans une base de données)
-            $mdp_Hash = password_hash($mdp, PASSWORD_DEFAULT);
-            $requete = $pdo->prepare('INSERT INTO utilisateur (pseudo_utilisateur,email_utilisateur,mdp_utilisateur) VALUES (?,?,?)');
-            $requete->bindParam(1, $pseudo);
-            $requete->bindParam(2, $email_utilisateur);
-            $requete->bindParam(3, $mdp_Hash);
-
-            // Exécution de la requête
-            $requete->execute();
-
-            // Rediriger l'utilisateur vers une autre page du site
-            header("Location: ../index.php");
-            exit();
-        }
-
     } else {
-        // email n'existe pas
-        $erreurs['email_existe'] = "Un compte existe déjà avec cet email !";
+        // Tester si le mot de passe correspond au mdp_utilisateur dans la BDD
+        $mdpUtilisateur=array(getMdpUtilisateur($email_utilisateur));
+        foreach ($mdpUtilisateur as $mdpHash) {
+            foreach ($mdpHash as $hash) {
+                if (password_verify($mdp, $hash)) {
+                    // Démarrer/créer une session
+                    session_start();    // PREMIERE INSTRUCTION
+                    // Ajouter une variable de session "utilisateur"
+                    $_SESSION['pseudo'] = $pseudo;
+                    header("Location: ../index.php");
+                    exit();
+                } else {
+                    $erreurs['identifiants'] = "Identifiants incorrects";
+                }
+            }
 
+        }
     }
 }
 
@@ -101,8 +93,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <div class="mb-3">
                 <label for="email_utilisateur" class="form-label fw-semibold">Email*</label>
                 <input type="email"
-                       class="form-control <?= (isset($erreurs['email_utilisateur'])) ? "border border-2 border-danger" : "" ?> form-control <?= (isset($erreurs['email_existe'])) ? "border border-2 border-danger" : "" ?>"
-                       id="email_utilisateur" name="email_utilisateur" value="<?= $email_utilisateur ?>" placeholder="Saisir un email valide"
+                       class="form-control <?= (isset($erreurs['email_utilisateur'])) ? "border border-2 border-danger" : "" ?> form-control <?= (isset($erreurs['email_existe'])) ? "border border-2 border-danger" : "" ?> form-control <?= (isset($erreurs['identifiants'])) ? "border border-2 border-danger" : "" ?>"
+                       id="email_utilisateur" name="email_utilisateur" value="<?= ($erreurs) ? "" : $email_utilisateur ?>" placeholder="Saisir un email valide"
                        aria-describedby="emailHelp">
                 <?php if (isset($erreurs['email_utilisateur'])) : ?>
                     <p class="form-text text-danger"><?= $erreurs['email_utilisateur'] ?></p>
@@ -114,11 +106,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <div class="mb-3">
                 <label for="mdp" class="form-label fw-semibold">Mot de passe*</label>
                 <input type="password"
-                       class="form-control <?= (isset($erreurs['mdp'])) ? "border border-2 border-danger" : "" ?> form-control <?= (isset($erreurs['mdp_egaux'])) ? "border border-2 border-danger" : "" ?>"
-                       id="mdp" name="mdp" value="<?= ($erreurs) ? "" : $email_utilisateur ?>" placeholder="Saisir votre mot de passe"
+                       class="form-control <?= (isset($erreurs['mdp'])) ? "border border-2 border-danger" : "" ?> form-control <?= (isset($erreurs['identifiants'])) ? "border border-2 border-danger" : "" ?>"
+                       id="mdp" name="mdp" value="<?= ($erreurs) ? "" : $mdp ?>" placeholder="Saisir votre mot de passe"
                        aria-describedby="emailHelp">
                 <?php if (isset($erreurs['mdp'])) : ?>
                     <p class="form-text text-danger"><?= $erreurs['mdp'] ?></p>
+                <?php endif; ?>
+                <?php if (isset($erreurs['identifiants'])) : ?>
+                    <p class="form-text text-danger"><?= $erreurs['identifiants'] ?></p>
                 <?php endif; ?>
             </div>
             <div class="text-center pt-2">

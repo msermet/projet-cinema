@@ -1,4 +1,12 @@
 <?php
+// Démarrer/créer une session
+session_start();    // PREMIERE INSTRUCTION
+// Récupérer la variable de session "utilisateur"
+$pseudo = null;
+if (isset($_SESSION["pseudo"])) {
+    $pseudo= $_SESSION["pseudo"];
+}
+
 require_once '../base.php';
 require_once BASE_PROJET . '/src/database/film-db.php';
 $films = getFilmsACcueil();
@@ -29,7 +37,7 @@ require_once BASE_PROJET."/src/fonctions.php";
 <!--Insertion d'un menu-->
 <?php require_once BASE_PROJET.'/src/_partials/header.php' ?>
 
-<section class="bg-light">
+<section>
     <div class="container">
         <h1 class="border-bottom border-primary border-3 m-2 fw-semibold text-dark">Accueil</h1>
         <p class="ms-2 fw-semibold fs-5">Découvrez notre présentation de divers films avec les détails, et plus encore comme l'ajout de vos films préférés !</p>
@@ -38,7 +46,7 @@ require_once BASE_PROJET."/src/fonctions.php";
     <div class="border-top border-3"></div>
 
 <!-- cartes-->
-<section>
+<section class=bg-light">
     <div class="text-center">
         <p class="badge text-bg-dark text-wrap fs-2" style="width: 20rem;">Nouveautés :</p>
     </div>

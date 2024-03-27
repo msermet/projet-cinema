@@ -2,6 +2,10 @@
 require_once '../base.php';
 require_once BASE_PROJET.'/src/database/utilisateur-db.php';
 
+session_start();
+if (!empty($_SESSION)) {
+    header("Location: ../index.php");
+}
 ?>
 
 <?php
@@ -49,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
     // Tester si l'adresse mail n'existe pas déjà dans la BDD
-    $utilisateur=getUtilisateur($email_utilisateur);
+    $utilisateur=getEmailUtilisateur($email_utilisateur);
     if ($utilisateur) {
         // email existe
         $erreurs['email_existe'] = "Un compte existe déjà avec cet email !";

@@ -2,6 +2,14 @@
 require_once '../base.php';
 require_once BASE_PROJET.'/src/database/film-db.php';
 
+session_start();
+if (empty($_SESSION)) {
+    header("Location: ../index.php");
+}
+$pseudo = null;
+if (isset($_SESSION["pseudo"])) {
+    $pseudo= $_SESSION["pseudo"];
+}
 ?>
 
 <?php
@@ -58,7 +66,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (empty($erreurs)) {
         // Traitement des données (insertion dans une base de données)
         // Rediriger l'utilisateur vers une autre page du site
-        postFilm($titre,$duree,$resume,$date,$pays,$image);
+
+        postFilm($titre,$duree,$resume,$date,$pays,$image,$id_utilisateur);
 
         // Rediriger l'utilisateur vers une autre page du site
         header("Location: ../index.php");

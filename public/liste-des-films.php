@@ -4,6 +4,12 @@ require_once BASE_PROJET . '/src/database/film-db.php';
 $films = getFilmsListe();
 
 require_once BASE_PROJET."/src/fonctions.php";
+
+session_start();
+$pseudo = null;
+if (isset($_SESSION["pseudo"])) {
+    $pseudo= $_SESSION["pseudo"];
+}
 ?>
 
 

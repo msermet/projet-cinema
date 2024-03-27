@@ -29,7 +29,7 @@ function getDetails(int $id) : array|bool
 function postFilm($titre,$duree,$resume,$date,$pays,$image): void
 {
     $pdo = getConnexion();
-    $requete = $pdo->prepare('INSERT INTO film (titre,duree,resume,date_sortie,pays,image) VALUES (?,?,?,?,?,?)');
+    $requete = $pdo->prepare('INSERT INTO film (titre,duree,resume,date_sortie,pays,image,id_utilisateur) VALUES (?,?,?,?,?,?,?)');
     $requete->bindParam(1, $titre);
     $requete->bindParam(2, $duree);
     $requete->bindParam(3, $resume);

@@ -3,7 +3,7 @@
 require_once '../base.php';
 require_once BASE_PATH.'/src/config/db-config.php';
 
-function getUtilisateur($email_utilisateur): array
+function getEmailUtilisateur($email_utilisateur): array
 {
     $pdo = getConnexion();
     $recuperation = $pdo->prepare("SELECT * FROM utilisateur WHERE email_utilisateur=?");
@@ -21,4 +21,12 @@ function postUtilisateur($mdp,$pseudo,$email_utilisateur): void
     $requete->bindParam(3, $mdp_Hash);
     $requete->execute();
 }
-?>
+
+function getMdpUtilisateur($email_utilisateur) : array|bool
+{
+    $pdo = getConnexion();
+    $recuperation = $pdo->prepare("SELECT mdp_utilisateur FROM utilisateur WHERE email_utilisateur=?");
+    $recuperation->execute([$email_utilisateur]);
+    $mdp=$recuperation->fetch(PDO::FETCH_ASSOC);
+    return $mdp;
+}
