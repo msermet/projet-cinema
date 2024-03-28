@@ -12,7 +12,10 @@
                 </li>
                 <?php if (!empty($_SESSION)) : ?>
                     <li class="nav-item">
-                        <a class="link-offset-2 link-underline link-underline-opacity-0 text-info fw-semibold border-2 fs-5" role="button" href="<?php BASE_PROJET?>/ajouter-film.php">Ajouter un film</a>
+                        <a class="link-offset-2 link-underline link-underline-opacity-0 text-info fw-semibold border-2 me-4 fs-5" role="button" href="<?php BASE_PROJET?>/ajouter-film.php">Ajouter un film</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="link-offset-2 link-underline link-underline-opacity-0 text-info fw-semibold border-2 fs-5" role="button" href="<?php BASE_PROJET?>/mes-films.php">Voir mes films</a>
                     </li>
                 <?php endif; ?>
             </ul>

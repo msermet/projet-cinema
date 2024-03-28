@@ -64,6 +64,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             // Traitement des données (insertion dans une base de données)
             postUtilisateur($mdp,$pseudo,$email_utilisateur);
 
+            $utilisateur=getEmailUtilisateur($email_utilisateur);
+            foreach ($utilisateur as $infoUtilisateur) {
+                $pseudo=$infoUtilisateur["pseudo_utilisateur"];
+                $id_utilisateur=$infoUtilisateur["id_utilisateur"];
+            }
+
+            $_SESSION['pseudo'] = $pseudo;
+            $_SESSION['email_utilisateur'] = $email_utilisateur;
             // Rediriger l'utilisateur vers une autre page du site
             header("Location: ../index.php");
             exit();

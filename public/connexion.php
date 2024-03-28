@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     session_start();    // PREMIERE INSTRUCTION
                     // Ajouter une variable de session "utilisateur"
                     $_SESSION['pseudo'] = $pseudo;
-                    $_SESSION['id_utilisateur'] = $id_utilisateur;
+                    $_SESSION['email_utilisateur'] = $email_utilisateur;
                     header("Location: ../index.php");
                     exit();
                 } else {

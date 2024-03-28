@@ -39,5 +39,3 @@ function postFilm($titre,$duree,$resume,$date,$pays,$image,$id_utilisateur): voi
     $requete->bindParam(7, $id_utilisateur);
     $requete->execute();
 }
-
-?>

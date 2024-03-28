@@ -32,11 +32,20 @@ function getMdpUtilisateur($email_utilisateur) : array|bool
 }
 
 
-function getPseudoUtilisateur($id_utilisateur)
+function getPseudoUtilisateur($id_utilisateur) : array
 {
     $pdo = getConnexion();
     $recuperation = $pdo->prepare("SELECT pseudo_utilisateur FROM utilisateur WHERE id_utilisateur=?");
     $recuperation->execute([$id_utilisateur]);
     $pseudo=$recuperation->fetch(PDO::FETCH_ASSOC);
     return $pseudo;
+}
+
+function getIdUtilisateur($email_utilisateur) : array
+{
+    $pdo = getConnexion();
+    $recuperation = $pdo->prepare("SELECT id_utilisateur FROM utilisateur WHERE email_utilisateur=?");
+    $recuperation->execute([$email_utilisateur]);
+    $id_utilisateur=$recuperation->fetch(PDO::FETCH_ASSOC);
+    return $id_utilisateur;
 }

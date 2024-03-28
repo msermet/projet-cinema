@@ -6,10 +6,7 @@ $pseudo = null;
 if (isset($_SESSION["pseudo"])) {
     $pseudo= $_SESSION["pseudo"];
 }
-$id = null;
-if (isset($_SESSION["id"])) {
-    $id= $_SESSION["id"];
-}
+
 
 require_once '../base.php';
 require_once BASE_PROJET.'/src/database/film-db.php';
