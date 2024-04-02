@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             }
         }
     }
-
+    echo $pseudo,$id_utilisateur;
     if (empty($mdp)) {
         $erreurs['mdp'] = "Le mot de passe est obligatoire";
     } else {
@@ -56,6 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     // Ajouter une variable de session "utilisateur"
                     $_SESSION['pseudo'] = $pseudo;
                     $_SESSION['email_utilisateur'] = $email_utilisateur;
+                    $_SESSION['id_utilisateur'] = $id_utilisateur;
                     header("Location: ../index.php");
                     exit();
                 } else {

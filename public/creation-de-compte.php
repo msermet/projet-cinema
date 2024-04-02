@@ -72,6 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             $_SESSION['pseudo'] = $pseudo;
             $_SESSION['email_utilisateur'] = $email_utilisateur;
+            $_SESSION['id_utilisateur'] = $id_utilisateur;
             // Rediriger l'utilisateur vers une autre page du site
             header("Location: ../index.php");
             exit();

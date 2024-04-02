@@ -11,8 +11,8 @@ if (isset($_SESSION["pseudo"])) {
     $pseudo= $_SESSION["pseudo"];
 }
 $id_utilisateur = null;
-if (isset($_SESSION["id_utilisateur"])) {
-    $id_utilisateur= $_SESSION["id_utilisateur"];
+if (isset($_SESSION['id_utilisateur'])) {
+    $id_utilisateur= $_SESSION['id_utilisateur'];
 }
 ?>
 
@@ -54,8 +54,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
     if (empty($date)) {
         $erreurs['date'] = "La date est obligatoire";
-    } elseif ($date>date("d/m/Y")) {
-        $erreurs['date'] = "La durée n'est pas valide";
     }
     if (empty($pays)) {
         $erreurs['pays'] = "Le pays est obligatoire";
