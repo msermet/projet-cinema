@@ -53,10 +53,12 @@ if (isset($_SESSION["email_utilisateur"])) {
 <!-- cartes-->
 <section>
     <div class="container text-center">
-        <div class="row align-items-center vh-100">
+        <div class="row align-items-center">
             <?php $id = getIdUtilisateur($email_utilisateur); ?>
+            <?php $filmExiste=0; ?>
             <?php foreach ($films as $film) : ?>
                 <?php if ($id['id_utilisateur']==$film["id_utilisateur"]) : ?>
+                    <?php $filmExiste=1; ?>
                     <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3">
                         <div class="card border-dark mb-5 text-center border-2 container bg-white shadow" style="width: 18rem;">
                             <div class="card-body">
@@ -69,6 +71,9 @@ if (isset($_SESSION["email_utilisateur"])) {
                     </div>
                 <?php endif; ?>
             <?php endforeach; ?>
+            <?php if ($filmExiste==0) : ?>
+            <p>Vous n'avez pas créé de films...</p>
+            <?php endif; ?>
         </div>
     </div>
 </section>
