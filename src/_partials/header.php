@@ -19,23 +19,32 @@
                     </li>
                 <?php endif; ?>
             </ul>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-end flex-grow-1 pe-3">
+            <ul class="navbar-nav mb-2 mb-lg-0 justify-content-end flex-grow-1 pe-3">
                 <?php if (empty($_SESSION)) : ?>
                     <li class="nav-item">
-                        <a class="btn btn-info fw-bold border-2 me-3" role="button" href="<?php BASE_PROJET?>/connexion.php">Connexion</a>
+                        <a class="btn btn-info fw-bold border-2 me-3" role="button" href="<?php BASE_PROJET?>/connexion.php">Se connecter</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-info fw-bold border-2" role="button" href="<?php BASE_PROJET?>/creation-de-compte.php">Inscription</a>
+                        <a class="btn btn-info fw-bold border-2" role="button" href="<?php BASE_PROJET?>/creation-de-compte.php">Créer un compte</a>
                     </li>
                 <?php else : ?>
-                    <li class="nav-item">
-                        <a class="btn btn-info fw-bold border-2" role="button" href="<?php BASE_PROJET?>/deconnexion.php">Déconnexion</a>
-                    </li>
+                    <?php if (isset($_SESSION['pseudo'])) : ?>
+                        <ul class="nav nav-pills">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle fw-semibold bg-primary text-light" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="bi bi-person-circle me-2"></i><?= $pseudo ?></a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li class="nav-item">
+                                        <a class="dropdown-item fw-bold text-center text-danger" role="button" href="<?php BASE_PROJET?>/deconnexion.php"><i class="bi bi-box-arrow-right me-2"></i>Se déconnecter</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    <?php endif; ?>
+
+
                 <?php endif; ?>
             </ul>
         </div>
     </div>
 </nav>
-<?php if (isset($_SESSION['pseudo'])) : ?>
-    <p class="fw-bold pt-5 me-5 fs-5 text-end">Heureux de vous revoir <span class="text-primary"><?= $pseudo ?></span> !</p>
-<?php endif; ?>
+

@@ -37,13 +37,15 @@ require_once BASE_PROJET."/src/fonctions.php";
 <!--Insertion d'un menu-->
 <?php require_once BASE_PROJET.'/src/_partials/header.php' ?>
 
-<section>
-    <div class="container">
-        <h1 class="border-bottom border-primary border-3 m-2 fw-semibold text-dark">Accueil</h1>
-        <p class="ms-2 fw-semibold fs-5">Découvrez notre présentation de divers films avec les détails, et plus encore comme l'ajout de vos films préférés !</p>
-    </div>
-</section>
-    <div class="border-top border-3"></div>
+<?php if (isset($_SESSION['pseudo'])) : ?>
+    <p class="fw-bold pt-5 me-5 fs-5 text-end">Heureux de vous revoir <span class="text-primary"><?= $pseudo ?></span> !</p>
+<?php endif; ?>
+
+<div class="container">
+    <h1 class="border-bottom border-primary border-3 fw-semibold text-dark pt-5">Accueil</h1>
+    <p class="ms-2 fw-semibold fs-5">Découvrez notre présentation de divers films avec leurs détails, et plus encore comme l'ajout de vos films préférés !</p>
+</div>
+<div class="border-top border-3"></div>
 
 <!-- cartes-->
 <section class=bg-light">

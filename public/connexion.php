@@ -42,7 +42,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             }
         }
     }
-    echo $pseudo,$id_utilisateur;
     if (empty($mdp)) {
         $erreurs['mdp'] = "Le mot de passe est obligatoire";
     } else {

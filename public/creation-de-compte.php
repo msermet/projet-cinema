@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($mdp_confirmation!=$mdp) {
         $erreurs['mdp_egaux'] = "Les mots de passe saisis ne sont pas identiques";
     } elseif (14<strlen($mdp) || 8>strlen($mdp)) {
-        $erreurs['mdp_longueur'] = "Le mot de passe doit être compris entre 8 et 14 caractères..";
+        $erreurs['mdp_longueur'] = "Le mot de passe doit être compris entre 8 et 14 caractères.";
     } elseif (!preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W)#', $mdp)) {
         $erreurs['mdp'] = "Votre mot de passe doit contenir un chiffre, une minuscule, une majuscule";
     }
@@ -179,14 +179,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                        aria-describedby="emailHelp">
                 <?php if (isset($erreurs['mdp_confirmation'])) : ?>
                     <p class="form-text text-danger"><?= $erreurs['mdp_confirmation'] ?></p>
+                <?php elseif (isset($erreurs['mdp_longueur'])) : ?>
+                    <p class="form-text text-danger"><?= $erreurs['mdp_longueur'] ?></p>
+                <?php elseif (isset($erreurs['mdp_egaux'])) : ?>
+                    <p class="form-text text-danger"><?= $erreurs['mdp_egaux'] ?></p>
                 <?php endif; ?>
             </div>
-            <?php if (isset($erreurs['mdp_longueur'])) : ?>
-                <p class="form-text text-danger"><?= $erreurs['mdp_longueur'] ?></p>
-            <?php endif; ?>
-            <?php if (isset($erreurs['mdp_egaux'])) : ?>
-                <p class="form-text text-danger"><?= $erreurs['mdp_egaux'] ?></p>
-            <?php endif; ?>
             <div class="text-center pt-2">
                 <button type="submit" class="btn btn-primary">Inscription</button>
             </div>
