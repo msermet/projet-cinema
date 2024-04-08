@@ -46,7 +46,7 @@ if (isset($_GET["id"])) {
 <?php require_once BASE_PROJET.'/src/_partials/header.php' ?>
 
 <section class="container bg-white shadow-lg p-3 mb-5 bg-white rounded my-5">
-    <?php if ($erreur!=true): ?>
+    <?php if (!$erreur): ?>
         <div class="container">
             <h1 class="border-bottom border-primary border-3">Détails</h1>
             <div class="row align-items-center">
