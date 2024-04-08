@@ -43,7 +43,7 @@ require_once BASE_PROJET."/src/fonctions.php";
 
 <div class="container">
     <h1 class="border-bottom border-primary border-3 fw-semibold text-dark pt-5">Accueil</h1>
-    <p class="ms-2 fw-semibold fs-5">Découvrez notre présentation de divers films avec leurs détails, et plus encore comme l'ajout de vos films préférés !</p>
+    <p class="ms-2 fw-semibold fs-5 pb-4">Découvrez notre présentation de divers films avec leurs détails, et plus encore comme l'ajout de vos films préférés !</p>
 </div>
 <div class="border-top border-3"></div>
 
