@@ -73,31 +73,7 @@ require_once BASE_PROJET."/src/fonctions.php";
     </div>
 </section>
 
-<div class="container">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <p class="col-md-4 mb-0 text-muted">&copy; 2024 Cinéma</p>
-
-        <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-        </a>
-
-        <ul class="nav col-md-4 justify-content-end">
-            <li class="nav-item me-3">
-                <a class="link-offset-2 link-underline link-underline-opacity-0 text-dark" href="/public/liste-des-films.php" role="button">Liste des films</a>
-            </li>
-            <li class="nav-item me-3">
-                <a class="link-offset-2 link-underline link-underline-opacity-0 text-dark" role="button" href="/public/ajouter-film.php">Ajouter un film</a>
-            </li>
-            <li class="nav-item me-3">
-                <a class="link-offset-2 link-underline link-underline-opacity-0 text-dark" role="button" href="/public/connexion.php">Connexion</a>
-            </li>
-            <li class="nav-item">
-                <a class="link-offset-2 link-underline link-underline-opacity-0 text-dark" role="button" href="/public/creation-de-compte.php">Inscription</a>
-            </li>
-        </ul>
-    </footer>
-</div>
-
+<?php require_once BASE_PROJET.'/src/_partials/footer.php' ?>
 
 
 <script src="assets/js/bootstrap.bundle.min.js"></script>
