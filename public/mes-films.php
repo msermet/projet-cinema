@@ -72,7 +72,7 @@ if (isset($_SESSION["email_utilisateur"])) {
                 <?php endif; ?>
             <?php endforeach; ?>
             <?php if ($filmExiste==0) : ?>
-            <p class="fs-3 fst-italic">Vous n'avez pas créé de films...</p>
+            <p class="fs-3 fst-italic">Vous n'avez pas créé de film...</p>
             <?php endif; ?>
         </div>
     </div>
