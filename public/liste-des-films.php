@@ -39,6 +39,7 @@ if (isset($_SESSION["pseudo"])) {
 <div class="container">
     <h1 class="border-bottom border-primary border-3 mt-5 m-2 fw-semibold text-dark">Films</h1>
 </div>
+
 <!-- cartes-->
 <section>
     <div class="container text-center">

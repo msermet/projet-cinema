@@ -55,7 +55,7 @@ require_once BASE_PROJET."/src/fonctions.php";
     <div class="container text-center pt-5">
         <div class="row align-items-center">
             <?php foreach ($films as $film) : ?>
-                <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3">
+                <div class="col-xs-12 col-md-6 col-lg-4 col-xxl-3 mb-5">
                     <div class="card border-dark text-center border-2 container bg-white shadow" style="width: 18rem;">
                         <div class="card-body">
                             <img height="305px" width="220px" class="rounded-2" src="<?= $film["image"] ?>" alt="">

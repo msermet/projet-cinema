@@ -7,7 +7,7 @@ require_once BASE_PATH.'/src/config/db-config.php';
 function getFilmsListe(): array
 {
     $pdo = getConnexion();
-    $requete = $pdo->prepare("SELECT * FROM film");
+    $requete = $pdo->prepare("SELECT * FROM film ORDER BY id_film DESC");
     $requete->execute();
     return $requete->fetchAll(PDO::FETCH_ASSOC);
 }
