@@ -70,11 +70,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $id_utilisateur=$infoUtilisateur["id_utilisateur"];
             }
 
-            $_SESSION['pseudo'] = $pseudo;
-            $_SESSION['email_utilisateur'] = $email_utilisateur;
-            $_SESSION['id_utilisateur'] = $id_utilisateur;
             // Rediriger l'utilisateur vers une autre page du site
-            header("Location: ../index.php");
+            header("Location: ../connexion.php");
             exit();
         }
     }
@@ -164,16 +161,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                        form-control <?= (isset($erreurs['mdp_longueur'])) ? "border border-2 border-danger" : "" ?>"
                        id="mdp" name="mdp" value="<?= ($erreurs) ? "" : $mdp ?>" placeholder="Saisir votre mot de passe"
                        aria-describedby="emailHelp">
-                <?php if (isset($erreurs['mdp'])) : ?>
-                    <p class="form-text text-danger"><?= $erreurs['mdp'] ?></p>
-                <?php endif; ?>
             </div>
             <div class="mb-3">
                 <label for="mdp_confirmation" class="form-label fw-semibold">Confirmation du mot de passe*</label>
                 <input type="password"
                        class="form-control <?= (isset($erreurs['mdp_confirmation'])) ? "border border-2 border-danger" : "" ?>
                        form-control <?= (isset($erreurs['mdp_egaux'])) ? "border border-2 border-danger" : "" ?>
-                       form-control <?= (isset($erreurs['mdp_longueur'])) ? "border border-2 border-danger" : "" ?>"
+                       form-control <?= (isset($erreurs['mdp_longueur'])) ? "border border-2 border-danger" : "" ?>
+                       form-control <?= (isset($erreurs['mdp'])) ? "border border-2 border-danger" : "" ?>"
                        id="mdp_confirmation"
                        name="mdp_confirmation" value="<?= ($erreurs) ? "" : $mdp ?>" placeholder="Saisir votre mot de passe à nouveau"
                        aria-describedby="emailHelp">
@@ -183,6 +178,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <p class="form-text text-danger"><?= $erreurs['mdp_longueur'] ?></p>
                 <?php elseif (isset($erreurs['mdp_egaux'])) : ?>
                     <p class="form-text text-danger"><?= $erreurs['mdp_egaux'] ?></p>
+                <?php elseif (isset($erreurs['mdp'])) : ?>
+                    <p class="form-text text-danger"><?= $erreurs['mdp'] ?></p>
                 <?php endif; ?>
             </div>
             <div class="text-center pt-2">

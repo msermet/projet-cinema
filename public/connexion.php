@@ -40,29 +40,28 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $pseudo=$infoUtilisateur["pseudo_utilisateur"];
                 $id_utilisateur=$infoUtilisateur["id_utilisateur"];
             }
-        }
-    }
-    if (empty($mdp)) {
-        $erreurs['mdp'] = "Le mot de passe est obligatoire";
-    } else {
-        // Tester si le mot de passe correspond au mdp_utilisateur dans la BDD
-        $mdpUtilisateur=array(getMdpUtilisateur($email_utilisateur));
-        foreach ($mdpUtilisateur as $mdpHash) {
-            foreach ($mdpHash as $hash) {
-                if (password_verify($mdp, $hash)) {
-                    // Démarrer/créer une session
-                    session_start();    // PREMIERE INSTRUCTION
-                    // Ajouter une variable de session "utilisateur"
-                    $_SESSION['pseudo'] = $pseudo;
-                    $_SESSION['email_utilisateur'] = $email_utilisateur;
-                    $_SESSION['id_utilisateur'] = $id_utilisateur;
-                    header("Location: ../index.php");
-                    exit();
-                } else {
-                    $erreurs['identifiants'] = "Identifiants incorrects";
+            if (empty($mdp)) {
+                $erreurs['mdp'] = "Le mot de passe est obligatoire";
+            } else {
+                // Tester si le mot de passe correspond au mdp_utilisateur dans la BDD
+                $mdpUtilisateur=array(getMdpUtilisateur($email_utilisateur));
+                foreach ($mdpUtilisateur as $mdpHash) {
+                    foreach ($mdpHash as $hash) {
+                        if (password_verify($mdp, $hash)) {
+                            // Démarrer/créer une session
+                            session_start();    // PREMIERE INSTRUCTION
+                            // Ajouter une variable de session "utilisateur"
+                            $_SESSION['pseudo'] = $pseudo;
+                            $_SESSION['email_utilisateur'] = $email_utilisateur;
+                            $_SESSION['id_utilisateur'] = $id_utilisateur;
+                            header("Location: ../index.php");
+                            exit();
+                        } else {
+                            $erreurs['identifiants'] = "Identifiants incorrects";
+                        }
+                    }
                 }
             }
-
         }
     }
 }

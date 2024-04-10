@@ -11,6 +11,7 @@ if (isset($_SESSION["pseudo"])) {
 require_once '../base.php';
 require_once BASE_PROJET.'/src/database/film-db.php';
 require_once BASE_PROJET.'/src/database/utilisateur-db.php';
+require_once BASE_PROJET.'/src/database/commentaire-db.php';
 require_once BASE_PROJET."/src/fonctions.php";
 
 $id = null;
@@ -24,6 +25,12 @@ if (isset($_GET["id"])) {
 } else {
     $erreur=true;
 }
+
+$commentaires = getCommentaire($id);
+$moyenneNbCommentaires=getMoyenneEtNbCommentaires($id);
+$nbCommentaires=$moyenneNbCommentaires["nombre_commentaires"];
+$moyenne=round($moyenneNbCommentaires["moyenne"],1);
+$moyenneEtoile=genererEtoiles(round($moyenneNbCommentaires["moyenne"],1));
 ?>
 
 
@@ -63,6 +70,13 @@ if (isset($_GET["id"])) {
                         <span class="me-5 fw-semibold"><i class="bi bi-calendar-check me-2"></i><?= $film["date_fr"] ?></span>
                         <span class="fw-semibold"><i class="bi bi-geo-fill me-2"></i><?= $film["pays"] ?></span>
                     </div>
+                    <?php if ($nbCommentaires==1):?>
+                        <p class="fw-semibold fs-5"><span class="me-1"><?=$moyenne?></span><span class="text-warning"><?=$moyenneEtoile?></span><span class="me-1 ms-3"><?=$nbCommentaires?></span>commentaire</p>
+                    <?php elseif (!empty($commentaires)) :?>
+                        <p class="fw-semibold fs-5"><span class="me-1"><?=$moyenne?></span><span class="text-warning"><?=$moyenneEtoile?></span><span class="me-1 ms-3"><?=$nbCommentaires?></span>commentaires</p>
+                    <?php else :?>
+                        <p class="fst-italic fs-5">Aucun commentaire pour ce film...</p>
+                    <?php endif; ?>
                     <p><span class="me-2 fst-italic fw-semibold">Synopsis:</span><?= $film["resume"]?></p>
                     <p class="text-secondary">Film créé par : <?php $pseudo=getPseudoUtilisateur($film["id_utilisateur"]);
                         echo $pseudo['pseudo_utilisateur']?></p>
@@ -74,17 +88,27 @@ if (isset($_GET["id"])) {
         <section>
             <?php if (!$erreur): ?>
                 <div class="bg-white shadow-lg p-3 mb-5 bg-white rounded">
-                    <div class="row">
-                        <div class="col-xl-9 col-md-8 col-sm-7 col-xs-6">
-                            <h1>Commentaires</h1>
-                        </div>
-                        <div class="col-xl-3 col-md-4 col-sm-5">
-                            <?php if (isset($_SESSION['pseudo'])) : ?>
-                                <a class="btn btn-info text-dark fw-semibold mb-2" href="ajout-commentaire.php?id=<?= $film["id_film"] ?>" role="button">Ajouter un commentaire</a>
-                            <?php endif; ?>
-                        </div>
-                    </div>
+                    <h1>Commentaires
+                    <?php if (isset($_SESSION['pseudo'])) : ?>
+                        <a class="btn btn-dark text-warning fw-semibold mb-2 float-end" href="ajout-commentaire.php?id=<?= $film["id_film"] ?>" role="button">Ajouter un commentaire</a>
+                    <?php endif; ?>
+                    </h1>
                     <div class="border-bottom border-primary border-3"></div>
+                    <div class="pt-3">
+                        <?php foreach ($commentaires as $commentaire) : ?>
+                            <div class="row border-bottom border-3 pt-2">
+                                <div class="col-9">
+                                    <h6 class="text-primary ms-3"><?= getPseudoUtilisateur($commentaire['id_utilisateur'])['pseudo_utilisateur'] ?></h6>
+                                    <p class="fs-5 fw-bold ms-3"><?= $commentaire["titre_commentaire"] ?></p>
+                                    <p class="fs-6 fw-semibold text-secondary ms-3"><?= $commentaire["avis_commentaire"] ?></p>
+                                </div>
+                                <div class="col-3">
+                                    <p class="text-secondary float-end me-3">Publié le<span class="ms-2 me-2 fw-semibold text-dark"><?=strftime('%d/%m/%Y',strtotime($commentaire["date_commentaire"]));?></span>à<span class="ms-2 fw-semibold text-dark"><?= $commentaire["heure_commentaire"]?></span></p>
+                                    <p><span class="badge text-bg-dark fs-5 float-end me-4 text-warning"><?= $commentaire["note_commentaire"] ?><i class="bi bi-star-fill ms-1"></i></span></p>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
             <?php endif; ?>
         </section>

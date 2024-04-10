@@ -126,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <label for="duree" class="form-label fw-semibold">Durée*</label>
                 <input type="number"
                        class="form-control <?= (isset($erreurs['duree'])) ? "border border-2 border-danger" : "" ?>"
-                       id="duree" name="duree" value="<?= $duree ?>" placeholder="Saisir la durée"
+                       id="duree" name="duree" value="<?= $duree ?>" placeholder="Saisir la durée en minutes"
                        aria-describedby="emailHelp">
                 <?php if (isset($erreurs['duree'])) : ?>
                     <p class="form-text text-danger"><?= $erreurs['duree'] ?></p>
