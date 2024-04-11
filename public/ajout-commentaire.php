@@ -27,9 +27,7 @@ if (isset($_GET["id"])) {
 } else {
     $erreur=true;
 }
-?>
 
-<?php
 // Déterminer si le formulaire a été soumis
 // Utilisation d'une variable superglobale $_SERVER
 // $_SERVER : tableau associatif contenant des informations sur la requête HTTP
@@ -58,6 +56,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $erreurs['note'] = "La note doit être comprise entre 0 et 5";
     }
 
+    // Test si l'utilisateur a déja posté un commentaire pour un film
+    $commentaires=getCommentaire($id);
+    foreach ($commentaires as $commentaire) {
+        if ($commentaire['id_utilisateur']==$id_utilisateur) {
+            $erreurs['existe'] = "Vous avez déjà poster un commentaire pour ce film";
+        }
+    }
 
     // Traiter les données
     if (empty($erreurs)) {
@@ -109,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <?php endif; ?>
                     </div>
                     <div class="mb-3">
-                        <label for="avis" class="form-label">Avis*</label>
+                        <label for="avis" class="form-label fw-semibold">Avis*</label>
                         <textarea
                                 class="form-control <?= (isset($erreurs['avis'])) ? "border border-2 border-danger" : "" ?>"
                                 id="avis"
@@ -130,6 +135,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <p class="form-text text-danger"><?= $erreurs['note'] ?></p>
                         <?php endif; ?>
                     </div>
+                    <?php if (isset($erreurs['existe'])) : ?>
+                        <p class="form-text text-danger"><?= $erreurs['existe'] ?></p>
+                    <?php endif; ?>
                     <div class="text-center pt-2">
                         <button type="submit" class="btn btn-primary">Ajouter</button>
                     </div>
