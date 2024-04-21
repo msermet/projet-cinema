@@ -25,12 +25,13 @@ if (isset($_GET["id"])) {
 } else {
     $erreur=true;
 }
-
-$commentaires = getCommentaire($id);
-$moyenneNbCommentaires=getMoyenneEtNbCommentaires($id);
-$nbCommentaires=$moyenneNbCommentaires["nombre_commentaires"];
-$moyenne=round($moyenneNbCommentaires["moyenne"],1);
-$moyenneEtoile=genererEtoiles(round($moyenneNbCommentaires["moyenne"],1));
+if ($id) {
+    $commentaires = getCommentaire($id);
+    $moyenneNbCommentaires=getMoyenneEtNbCommentaires($id);
+    $nbCommentaires=$moyenneNbCommentaires["nombre_commentaires"];
+    $moyenne=round($moyenneNbCommentaires["moyenne"],1);
+    $moyenneEtoile=genererEtoiles(round($moyenneNbCommentaires["moyenne"],1));
+}
 ?>
 
 
