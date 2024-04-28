@@ -3,6 +3,18 @@ require_once '../base.php';
 require_once BASE_PROJET.'/src/database/film-db.php';
 require_once BASE_PROJET.'/src/database/commentaire-db.php';
 
+$id = null;
+$erreur=false;
+if (isset($_GET["id"])) {
+    $id = filter_var($_GET["id"],FILTER_VALIDATE_INT);
+    $film = getDetails($id);
+    if ($film==null) {
+        $erreur=true;
+    }
+} else {
+    $erreur=true;
+}
+
 session_start();
 if (empty($_SESSION)) {
     header("Location: ../index.php");
@@ -16,17 +28,6 @@ if (isset($_SESSION['id_utilisateur'])) {
     $id_utilisateur= $_SESSION['id_utilisateur'];
 }
 
-$id = null;
-$erreur=false;
-if (isset($_GET["id"])) {
-    $id = filter_var($_GET["id"],FILTER_VALIDATE_INT);
-    $film = getDetails($id);
-    if ($film==null) {
-        $erreur=true;
-    }
-} else {
-    $erreur=true;
-}
 
 // Déterminer si le formulaire a été soumis
 // Utilisation d'une variable superglobale $_SERVER
@@ -75,6 +76,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         header("Location: details.php?id=$id");
         exit();
     }
+}
+
+if (!empty($_SESSION["existeCommentaire"])) {
+    header("Location: details.php?id=$id");
 }
 ?>
 

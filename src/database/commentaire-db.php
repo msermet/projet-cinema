@@ -34,3 +34,18 @@ function getMoyenneEtNbCommentaires($id_film): array
     return $requete->fetch(PDO::FETCH_ASSOC);
 }
 
+function existeCommentaire($id_utilisateur,$id_film): array
+{
+    $pdo = getConnexion();
+    $requete = $pdo->prepare("SELECT * FROM commentaire WHERE id_utilisateur='$id_utilisateur' AND id_film='$id_film'");
+    $requete->execute();
+    return $requete->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function deleteCommentaire($id_utilisateur,$id_film): void
+{
+    $pdo = getConnexion();
+    $requete = $pdo->prepare("DELETE FROM commentaire WHERE id_utilisateur='$id_utilisateur' AND id_film='$id_film'");
+    $requete->execute();
+}
+

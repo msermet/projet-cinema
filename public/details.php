@@ -1,13 +1,4 @@
 <?php
-// Démarrer/créer une session
-session_start();    // PREMIERE INSTRUCTION
-// Récupérer la variable de session "utilisateur"
-$pseudo = null;
-if (isset($_SESSION["pseudo"])) {
-    $pseudo= $_SESSION["pseudo"];
-}
-
-
 require_once '../base.php';
 require_once BASE_PROJET.'/src/database/film-db.php';
 require_once BASE_PROJET.'/src/database/utilisateur-db.php';
@@ -25,6 +16,21 @@ if (isset($_GET["id"])) {
 } else {
     $erreur=true;
 }
+// Démarrer/créer une session
+session_start();    // PREMIERE INSTRUCTION
+// Récupérer la variable de session "utilisateur"
+$pseudo = null;
+if (isset($_SESSION["pseudo"])) {
+    $pseudo= $_SESSION["pseudo"];
+}
+
+$id_utilisateur = null;
+if (isset($_SESSION['id_utilisateur'])) {
+    $id_utilisateur= $_SESSION['id_utilisateur'];
+    $_SESSION["existeCommentaire"]=existeCommentaire($id_utilisateur,$id);
+}
+
+
 if ($id) {
     $commentaires = getCommentaire($id);
     $moyenneNbCommentaires=getMoyenneEtNbCommentaires($id);
@@ -32,6 +38,7 @@ if ($id) {
     $moyenne=round($moyenneNbCommentaires["moyenne"],1);
     $moyenneEtoile=genererEtoiles(round($moyenneNbCommentaires["moyenne"],1));
 }
+
 ?>
 
 
@@ -91,7 +98,51 @@ if ($id) {
                 <div class="bg-white shadow-lg p-3 mb-5 bg-white rounded">
                     <h1>Commentaires
                     <?php if (isset($_SESSION['pseudo'])) : ?>
-                        <a class="btn btn-dark text-warning fw-semibold mb-2 float-end" href="ajout-commentaire.php?id=<?= $film["id_film"] ?>" role="button">Ajouter un commentaire</a>
+                        <?php if (empty($_SESSION["existeCommentaire"])) : ?>
+                            <a class="btn btn-dark text-warning fw-semibold mb-2 float-end" href="ajout-commentaire.php?id=<?= $film["id_film"] ?>" role="button">Ajouter un commentaire</a>
+                            <button type="button" class="btn float-end" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal5">
+                                <i class="bi bi-info-circle"></i>
+                            </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal5" tabindex="-1" aria-labelledby="exampleModalLabel5"
+                                 aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel5">Information</h1>
+                                            <button type="button" class="btn-close fs-6" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body fs-5">
+                                            <p>Vous ne pouvez ajouter qu'un seul commentaire pour ce film.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php else: ?>
+                            <a class="btn btn-dark text-warning fw-semibold mb-2 float-end" href="verif-suppression-commentaire.php?id=<?= $film["id_film"] ?>" role="button">Supprimer votre commentaire</a>
+                            <button type="button" class="btn float-end" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal5">
+                                <i class="bi bi-info-circle"></i>
+                            </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal5" tabindex="-1" aria-labelledby="exampleModalLabel5"
+                                 aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel5">Information</h1>
+                                            <button type="button" class="btn-close fs-6" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body fs-5">
+                                            <p>Supprimez votre commentaire pour en ajouter un nouveau.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
                     <?php endif; ?>
                     </h1>
                     <div class="border-bottom border-primary border-3"></div>
